@@ -1,0 +1,3 @@
+medicfront_homepage:
+    path:     /
+    defaults: { _controller: medicfrontBundle:Default:index }

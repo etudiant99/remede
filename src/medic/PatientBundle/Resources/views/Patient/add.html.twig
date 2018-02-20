@@ -1,0 +1,186 @@
+{% extends "medicPatientBundle::layout.html.twig" %}
+
+{% block medicpatient_body %}
+  <h2>Ajouter un patient</h2>
+
+  {{ include("medicMedicamentBundle:Remede:form.html.twig") }}
+
+{# On charge la bibliothèque jQuery. Ici, je la prends depuis le CDN google
+   mais si vous l'avez en local, changez simplement l'adresse. #}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+{# Voici le script en question : #}
+<script type="text/javascript">
+  $(document).ready(function() {
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#medic_patientbundle_patient_antecedent');
+    var $containerAllergie = $('div#medic_patientbundle_patient_allergie');
+    var $containerTraitement = $('div#medic_patientbundle_patient_traitementCours');
+
+    // On ajoute un lien pour ajouter un nouvel antécédent
+    var $addLink = $('<a href="#" id="add_antecedent" class="btn btn-default">Ajouter un antécédent</a>');
+    var $addLinkAllergie = $('<a href="#" id="add_allergie" class="btn btn-default">Ajouter une allergie</a>');
+    var $addLinkTraitement = $('<a href="#" id="add_traitement" class="btn btn-default">Ajouter un traitement</a>');
+    $container.append($addLink);
+    $containerAllergie.append($addLinkAllergie);
+    $containerTraitement.append($addLinkTraitement);
+
+    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+    $addLink.click(function(e) {
+      addAntecedent($container);
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+    $addLinkAllergie.click(function(f) {
+      addAllergie($containerAllergie);
+      f.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+    $addLinkTraitement.click(function(g) {
+      addTraitement($containerTraitement);
+      g.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+
+    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+    var index = $container.find(':input').length;
+    var indexAllergie = $containerAllergie.find(':input').length
+    var indexTraitement = $containerTraitement.find(':input').length
+
+    // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un.
+    if (index == 0) {
+      addAntecedent($container);
+    } else {
+      // Pour chaque antécédent déjà existant, on ajoute un lien de suppression
+      $container.children('div').each(function() {
+        addDeleteLink($(this));
+      });
+    }
+    
+    // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un.
+    if (indexAllergie == 0) {
+      addAllergie($containerAllergie);
+    } else {
+      // Pour chaque antécédent déjà existant, on ajoute un lien de suppression
+      $containerAllergie.children('div').each(function() {
+        addDeleteLinkAllergie($(this));
+      });
+    }
+
+    // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un.
+    if (indexTraitement == 0) {
+      addTraitement($containerTraitement);
+    } else {
+      // Pour chaque antécédent déjà existant, on ajoute un lien de suppression
+      $containerTraitement.children('div').each(function() {
+        addDeleteLinkTraitement($(this));
+      });
+    }
+
+    // La fonction qui ajoute un formulaire Antécédent
+    function addAntecedent($container) {
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+      // - le texte "__name__label__" qu'il contient par le label du champ
+      // - le texte "__name__" qu'il contient par le numéro du champ
+      var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Antécédent')
+          .replace(/__name__/g, index));
+
+      // On ajoute au prototype un lien pour pouvoir supprimer l'antécédent
+      addDeleteLink($prototype);
+
+      // On ajoute le prototype modifié à la fin de la balise <div>
+      $container.append($prototype);
+
+      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+      index++;
+    }
+
+    // La fonction qui ajoute un formulaire Allergie
+    function addAllergie($containerAllergie) {
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+      // - le texte "__name__label__" qu'il contient par le label du champ
+      // - le texte "__name__" qu'il contient par le numéro du champ
+      var $prototypeAllergie = $($containerAllergie.attr('data-prototype').replace(/__name__label__/g, 'Allergie')
+          .replace(/__name__/g, indexAllergie));
+
+      // On ajoute au prototype un lien pour pouvoir supprimer l'allergie
+      addDeleteLinkAllergie($prototypeAllergie);
+
+      // On ajoute le prototype modifié à la fin de la balise <div>
+      $containerAllergie.append($prototypeAllergie);
+
+      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+      indexAllergie++;
+    }
+
+    // La fonction qui ajoute un formulaire Traitement
+    function addTraitement($containerTraitement) {
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+      // - le texte "__name__label__" qu'il contient par le label du champ
+      // - le texte "__name__" qu'il contient par le numéro du champ
+      var $prototypeTraitement = $($containerTraitement.attr('data-prototype').replace(/__name__label__/g, 'Traitement')
+          .replace(/__name__/g, indexTraitement));
+
+      // On ajoute au prototype un lien pour pouvoir supprimer le traitement
+      addDeleteLinkTraitement($prototypeTraitement);
+
+      // On ajoute le prototype modifié à la fin de la balise <div>
+      $containerTraitement.append($prototypeTraitement);
+
+      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+      indexTraitement++;
+    }
+
+    // La fonction qui ajoute un lien de suppression d'un antécédent
+    function addDeleteLink($prototype) {
+      // Création du lien
+      $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+      // Ajout du lien
+      $prototype.append($deleteLink);
+
+      // Ajout du listener sur le clic du lien
+      $deleteLink.click(function(e) {
+        $prototype.remove();
+        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+        return false;
+      });
+    }
+    
+    // La fonction qui ajoute un lien de suppression d'une allergie
+    function addDeleteLinkAllergie($prototypeAllergie) {
+      // Création du lien
+      $deleteLinkAllergie = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+      // Ajout du lien
+      $prototypeAllergie.append($deleteLinkAllergie);
+
+      // Ajout du listener sur le clic du lien
+      $deleteLinkAllergie.click(function(e) {
+        $prototypeAllergie.remove();
+        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+        return false;
+      });
+    }
+    
+    // La fonction qui ajoute un lien de suppression d'un traitement
+    function addDeleteLinkTraitement($prototypeTraitement) {
+      // Création du lien
+      $deleteLinkTraitement = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+      // Ajout du lien
+      $prototypeTraitement.append($deleteLinkTraitement);
+
+      // Ajout du listener sur le clic du lien
+      $deleteLinkTraitement.click(function(e) {
+        $prototypeTraitement.remove();
+        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+        return false;
+      });
+    }
+
+  });
+
+</script>
+{% endblock %}

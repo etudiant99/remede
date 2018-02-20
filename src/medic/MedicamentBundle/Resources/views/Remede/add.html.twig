@@ -1,0 +1,14 @@
+{% extends "medicMedicamentBundle::layout.html.twig" %}
+
+{% block medicmedicament_body %}
+
+  <h2>Ajouter un médicament</h2>
+
+  {{ include("medicMedicamentBundle:Remede:form.html.twig") }}
+
+  <p>
+    Attention : ce médicament sera ajouté directement
+    sur la page d'accueil après validation du formulaire.
+  </p>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "medicPatientBundle::layout.html.twig" %}
+
+{% block medicpatient_body %}
+    <h2>Liste des patients</h2>
+    <ul>
+      {% for patient in listPatients %}
+        <li>{{ patient.prenom }} {{ patient.nom }}
+        {% for antecedent in patient.antecedent %}
+          {% if loop.index == 1 %}
+            <span style="font-weight:bold;">Antécédents:</span>
+          {% endif %}
+          {{ antecedent }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+        {% for allergie in patient.allergie %}
+          {% if loop.index == 1 %}
+            <span style="font-weight:bold;">Allergies:</span>
+          {% endif %}
+          {{ allergie }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+        {% for traitement in patient.traitementCours %}
+        {% if loop.index == 1 %}
+          <span style="font-weight:bold;">Traitement en cours:</span>
+        {% endif %}
+          {{ traitement }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+      {% else %}
+        <li>Pas encore de patients</li>
+      {% endfor %}
+    </ul>
+
+{% endblock %}

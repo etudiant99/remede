@@ -1,0 +1,12 @@
+{% extends "medicSymptomeBundle::layout.html.twig" %}
+
+{% block medicsymptome_body %}
+    <h2>Liste des symptomes</h2>
+    <ul>
+      {% for symptome in listSymptomes %}
+        <li><a href="{{ path('medic_symptome_view', {'id': symptome.id}) }}">{{ symptome.nom }}</a>
+      {% else %}
+        <li>Pas encore de symptomes</li>
+      {% endfor %}
+    </ul>
+{% endblock %}

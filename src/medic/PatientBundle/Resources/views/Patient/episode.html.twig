@@ -1,0 +1,13 @@
+{% extends "medicPatientBundle::layout.html.twig" %}
+
+{% block medicpatient_body %}
+
+  <h2>Ajouter un épisode</h2>
+  {% if monpatient is not empty %}
+      Patient: {{ monpatient.prenom }} {{ monpatient.nom }}<br />
+  {% else %}
+      Aucun patient n'a été sélectionné<br />
+  {% endif %}
+  {{ include("medicMedicamentBundle:Remede:form.html.twig") }}
+
+{% endblock %}

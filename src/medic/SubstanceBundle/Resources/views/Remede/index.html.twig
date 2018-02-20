@@ -1,0 +1,16 @@
+{% extends "medicSubstanceBundle::layout.html.twig" %}
+
+{% block medicsubstance_body %}
+
+  <h2>Liste des substances</h2>
+
+  <ul>
+    {% for substance in listSubstances %}
+      <li>{{ substance.nom }}</li>
+    {% else %}
+      <li>Pas (encore !) de substances</li>
+    {% endfor %}
+  </ul>
+
+
+{% endblock %}

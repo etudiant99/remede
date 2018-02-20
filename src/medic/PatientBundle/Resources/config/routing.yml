@@ -1,0 +1,19 @@
+medic_patient_homepage:
+    path:     /
+    defaults: { _controller: medicPatientBundle:Patient:index }
+
+medic_patient_connexion:
+    path:     /connexion
+    defaults: { _controller: medicPatientBundle:Patient:connexion }
+
+medic_patient_add:
+    path:      /ajout/patient
+    defaults:   { _controller:  medicPatientBundle:Patient:add }
+    
+medic_examen_patient_add:
+    path:      /ajout/examenc
+    defaults:   { _controller:  medicPatientBundle:Patient:addExamen }
+    
+medic_patient_episode:
+    path:      /ajout/episode
+    defaults:   { _controller:  medicPatientBundle:Patient:episode }

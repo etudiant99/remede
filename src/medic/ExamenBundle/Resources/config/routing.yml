@@ -1,0 +1,7 @@
+medic_examen_homepage:
+    path:     /
+    defaults: { _controller: medicExamenBundle:Examen:index }
+
+medic_examen_ajouter:
+    path:     /ajout
+    defaults: { _controller: medicExamenBundle:Examen:add }

@@ -1,0 +1,11 @@
+{% extends "medicPatientBundle::layout.html.twig" %}
+
+{% block medicpatient_body %}
+    <h3>Aucun patient n'est connecté</h3>
+
+    <a href="{{ path('medic_patient_connexion') }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Connecter un patient
+    </a>
+
+{% endblock %}

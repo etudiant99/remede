@@ -1,0 +1,40 @@
+{# src/medic/frontBundle/Resources/views/layout.html.twig #}
+
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+  Médecins - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+      <div id="menu" class="col-md-3">
+        <h3>Modules</h3>
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="{{ path('medic_examen_homepage') }}">Examen</a></li>
+          <li><a href="{{ path('medic_medicament_homepage') }}">Médicament</a></li>
+          <li><a href="{{ path('medic_patient_homepage') }}">Patient</a></li>
+          <li><a href="{{ path('medic_substance_homepage') }}">Substance</a></li>
+          <li><a href="{{ path('medic_symptome_homepage') }}">Symptome</a></li>
+        </ul>
+        <h3>Utilisateur</h3>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            Bienvenue {{ app.user.username }}<br />
+            <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+        {% else %}
+            <a href="{{ path('fos_user_security_login') }}">Connexion</a><br />
+            <a href="{{ path('fos_user_registration_register') }}">Inscription</a><br />
+            <a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié</a>
+
+        {% endif %}
+      </div>
+      <div id="content" class="col-md-9">
+
+  {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
+  <h1>Accueil du site</h1>
+
+  {# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
+  {% block medicfront_body %}
+  {% endblock %}
+
+{% endblock %}

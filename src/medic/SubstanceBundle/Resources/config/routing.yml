@@ -1,0 +1,11 @@
+medic_substance_homepage:
+    path:     /
+    defaults: { _controller: medicSubstanceBundle:Remede:index }
+
+medic_substance_ajouter:
+    path:      /ajout
+    defaults: { _controller: medicSubstanceBundle:Remede:ajout }
+    
+medic_substance_view:
+    path:      /item/{id}
+    defaults:  { _controller: medicSubstanceBundle:Remede:view }

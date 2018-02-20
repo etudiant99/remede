@@ -1,0 +1,37 @@
+
+{% extends "medicMedicamentBundle::layout.html.twig" %}
+
+{% block title %}
+  Consultation médicament - {{ parent() }}
+{% endblock %}
+
+{% block medicmedicament_body %}
+    <h2>{{ medicament.nom }}</h2>
+  <p>
+  {% if not medicament.substances.empty %}
+    <p>
+      Contenu :
+      {% for substance in medicament.substances %}
+        {{ substance.nom }}{% if not loop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+  {% endif %}
+  </p>
+  
+  <p>
+    <a href="{{ path('medic_medicament_homepage') }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à la liste
+    </a>
+    <a href="{{ path('medic_medicament_edit', {'slug': medicament.slug}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-edit"></i>
+      Modifier le médicament
+    </a>
+    <a href="{{ path('medic_medicament_delete', {'slug': medicament.slug}) }}" class="btn btn-danger">
+      <i class="glyphicon glyphicon-trash"></i>
+      Supprimer le médicament
+    </a>
+  </p>
+
+
+{% endblock %}

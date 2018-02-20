@@ -1,0 +1,18 @@
+{% extends "medicSymptomeBundle::layout.html.twig" %}
+
+{% block medicsymptome_body %}
+    <h2>{{ symptome.nom }}</h2>
+    
+    {% if symptome.questionnaire.count > 0 %}
+      <div><span style="background-color: chartreuse;">Questions</span></div>
+      {% for question in symptome.questionnaire %}
+        {{ question.question }}{% if not loop.last %}<br />{% endif %}
+      {% endfor %}
+    {% endif %}
+    <p>
+      <a href="{{ path('medic_symptome_homepage') }}" class="btn btn-default">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        {{ 'Retour à la liste' }}
+      </a>
+    </p>
+{% endblock %}

@@ -1,0 +1,4 @@
+services:
+#    medic_examen.example:
+#        class: medic\ExamenBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

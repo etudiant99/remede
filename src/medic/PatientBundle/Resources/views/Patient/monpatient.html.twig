@@ -1,0 +1,35 @@
+{% extends "medicPatientBundle::layout.html.twig" %}
+
+{% block medicpatient_body %}
+  <h2>Afficher un patient</h2>
+    {% for x in monPatient %}
+      <div class="col-md-6">
+        <span style="font-weight:bold;">prénom:</span> {{ x.prenom }}<br />
+        <span style="font-weight:bold;">nom:</span> {{ x.nom }}<br />
+        <span style="font-weight:bold;">adresse:</span> {{ x.adresse }}<br />
+        <span style="font-weight:bold;">téléphone:</span> {{ x.telephone }}<br />
+        <span style="font-weight:bold;">date de naissance:</span> {{ x.dateNaissance|date('d-m-Y') }}<br />
+        <span style="font-weight:bold;">âge: </span>{{ age }}<br />
+      </div>
+      <div class="col-md-6">
+        <span style="font-weight:bold;">poids:</span> {{ x.poids }} kilos<br />
+        <span style="font-weight:bold;">taille:</span> {{ x.taille }} cm<br />
+        <span style="font-weight:bold;">médecin traitant:</span> {{ x.medecinTraitant }}<br />
+        <span style="font-weight:bold;">médecin de famille:</span> {{ x.medecinfamille }}<br />
+        <span style="font-weight:bold;">allergies:</span>
+        {% for allergie in x.allergie %}
+          {{ allergie }}{% if not loop.last %}, {% endif %}
+        {% endfor %}<br />
+        <span style="font-weight:bold;">traitement en cours:</span>
+        {% for traitement in x.traitementCours %}
+          {{ traitement }}{% if not loop.last %}, {% endif %}
+        {% endfor %}<br />
+        <span style="font-weight:bold;">antécédents:</span>
+        {% for antecedent in x.antecedent %}
+          {{ antecedent }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+        <br />
+      </div>
+    {% endfor %}
+
+{% endblock %}

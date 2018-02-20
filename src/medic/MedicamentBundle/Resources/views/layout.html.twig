@@ -1,0 +1,35 @@
+{# src/medic/MedicamentBundle/Resources/views/layout.html.twig #}
+
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+  Médecins - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+      <div id="menu" class="col-md-3">
+        <h3>Médicament</h3>
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="{{ path('medicfront_homepage') }}">Accueil</a></li>
+          <li><a href="{{ path('medic_medicament_add') }}">Ajouter un médicament</a></li>
+        </ul>
+      </div>
+      <div id="content" class="col-md-9">
+    {# On gère les messages flash de façon globale pour tout le bundle
+       On peut catégoriser les messages dans différents sacs (bag),
+       ici on les a mis dans "info", "success" et "error", qui correspondent aux classes CSS du Bootstrap #}
+    
+    {% for type in ['info', 'success', 'error'] %}
+        {% for message in app.session.flashbag.get(type) %}
+            <div class="alert alert-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+  {# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
+  {% block medicmedicament_body %}
+  {% endblock %}
+
+{% endblock %}

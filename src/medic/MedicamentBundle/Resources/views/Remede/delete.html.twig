@@ -1,0 +1,28 @@
+{# src/medic/MedicamentBundle/Resources/views/Remede/delete.html.twig #}
+
+{% extends "medicMedicamentBundle::layout.html.twig" %}
+
+
+{% block title %}
+  Supprimer un médicament - {{ parent() }}
+{% endblock %}
+
+{% block medicmedicament_body %}
+  <h2>Supprimer un médicament</h2>
+  <p>
+    Etes-vous certain de vouloir supprimer le médicament "{{ medicament.nom }}" ?
+  </p>
+
+  {# On met l'id de l'annonce dans la route de l'action du formulaire #}
+  <form action="{{ path('medic_medicament_delete', {'slug': medicament.slug}) }}" method="post">
+    <a href="{{ path('medic_medicament_view', {'slug': medicament.slug}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au médicament
+    </a>
+    {# Ici j'ai écrit le bouton de soumission à la main #}
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {# Ceci va générer le champ CSRF #}
+    {{ form_rest(form) }}
+  </form>
+
+{% endblock %}

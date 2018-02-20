@@ -1,0 +1,16 @@
+{% extends "medicExamenBundle::layout.html.twig" %}
+
+{% block medicexamen_body %}
+
+  <h2>Liste des examens</h2>
+  <ul>
+    {% for examen in listExamens %}
+      <li>{{ examen.nom }}</li>
+    {% else %}
+      <li>Pas encore d'examens</li>
+    {% endfor %}
+  </ul>
+
+
+
+{% endblock %}

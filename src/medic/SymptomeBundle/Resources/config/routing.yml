@@ -1,0 +1,13 @@
+medic_symptome_homepage:
+    path:     /
+    defaults: { _controller: medicSymptomeBundle:Symptome:index }
+
+medic_symptome_add:
+    path:     /ajout
+    defaults: { _controller: medicSymptomeBundle:Symptome:add }
+
+medic_symptome_view:
+    path:     /item/{id}
+    defaults: { _controller: medicSymptomeBundle:Symptome:view }
+    requirements:
+        id: \d+

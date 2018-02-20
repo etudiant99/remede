@@ -1,0 +1,19 @@
+medic_medicament_homepage:
+    path:      /{page}
+    defaults:  { _controller: medicMedicamentBundle:Remede:index, page: 1 }
+    
+medic_medicament_add:
+    path:      /ajout/medicament
+    defaults:   { _controller:  medicMedicamentBundle:Remede:add }
+    
+medic_medicament_view:
+    path:      /item/{slug}
+    defaults:  { _controller: medicMedicamentBundle:Remede:view }
+
+medic_medicament_edit:
+    path:      /editer/item/{slug}
+    defaults:  { _controller: medicMedicamentBundle:Remede:edit }
+
+medic_medicament_delete:
+    path:      /effacer/item/{slug}
+    defaults:  { _controller: medicMedicamentBundle:Remede:delete }
